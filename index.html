@@ -3,24 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>bKash Full Web App Engine</title>
-    <!-- Tailwind CSS -->
+    <title>bKash App Clone</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Pro Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
-        body { font-family: 'Hind Siliguri', sans-serif; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-900 md:py-6 min-h-screen flex items-center justify-center">
 
-    <!-- Mobile Screen Wrapper Frame -->
-    <div class="w-full max-w-md bg-white min-h-screen md:min-h-[840px] md:rounded-[36px] shadow-2xl flex flex-col justify-between relative overflow-hidden border-4 border-gray-800">
+    <div class="w-full max-w-md bg-white min-h-screen md:min-h-[820px] md:rounded-[36px] shadow-2xl flex flex-col justify-between relative overflow-hidden border-4 border-gray-800">
         
-        <!-- 1. SIGN UP SCREEN -->
         <div id="signup-screen" class="absolute inset-0 bg-white z-50 p-6 flex flex-col justify-between transition-all duration-500">
             <div class="space-y-6 mt-6">
                 <div class="flex justify-between items-center">
@@ -38,21 +29,21 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 mb-1">মোবাইল নম্বর (১১ ডিজিট)</label>
-                        <input type="text" inputmode="numeric" id="reg-phone" maxlength="11" placeholder="যেমন: 016XXXXXXXX" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 font-mono tracking-wider text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <input type="text" inputmode="numeric" id="reg-phone" maxlength="11" placeholder="যেমন: 016XXXXXXXX" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 font-mono tracking-wider text-sm input-numeric-only">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 mb-1">বিকাশ পিন সেট করুন (৫ ডিজিট)</label>
-                        <input type="password" inputmode="numeric" id="reg-pin" maxlength="5" placeholder="•••••" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 font-mono tracking-widest text-lg" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <input type="password" inputmode="numeric" id="reg-pin" maxlength="5" placeholder="•••••" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 font-mono tracking-widest text-lg input-numeric-only">
                     </div>
                 </div>
             </div>
             <div class="space-y-3">
-                <button onclick="handleSignUp()" class="w-full py-3.5 bg-[#E2136E] text-white font-bold rounded-xl shadow-lg shadow-pink-200 active:scale-98 transition text-sm">রেজিস্ট্রেশন সম্পন্ন করুন</button>
+                <button type="button" onclick="handleSignUp()" class="w-full py-4 bg-[#E2136E] text-white font-bold rounded-xl shadow-lg shadow-pink-200 active:scale-98 transition text-sm">রেজিস্ট্রেশন সম্পন্ন করুন</button>
                 <p class="text-center text-xs text-gray-500">ইতিমধ্যে অ্যাকাউন্ট আছে? <span onclick="goToLoginScreen()" class="text-[#E2136E] font-bold cursor-pointer hover:underline">লগইন করুন</span></p>
+                <button type="button" onclick="bypassToDashboard()" class="w-full py-2 bg-gray-800 text-yellow-400 font-bold rounded-xl text-xs mt-2">সরাসরি ড্যাশবোর্ডে যান (টেস্ট মোড)</button>
             </div>
         </div>
 
-        <!-- 2. LOGIN APP SCREEN -->
         <div id="login-screen" class="absolute inset-0 bg-white z-40 p-6 flex flex-col justify-between transition-all duration-500 hidden">
             <div class="space-y-8 mt-12">
                 <div class="flex justify-between items-center">
@@ -66,43 +57,38 @@
                 <div class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-gray-500 mb-1">মোবাইল নম্বর</label>
-                        <input type="text" inputmode="numeric" id="login-phone" maxlength="11" placeholder="১১ ডিজিটের মোবাইল নম্বর" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 font-mono tracking-wider text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <input type="text" inputmode="numeric" id="login-phone" maxlength="11" placeholder="১১ ডিজিটের মোবাইল নম্বর" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 font-mono tracking-wider text-sm input-numeric-only">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 mb-1">বিকাশ পিন (৫ ডিজিট)</label>
-                        <input type="password" inputmode="numeric" id="login-pin" maxlength="5" placeholder="•••••" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 font-mono tracking-widest text-lg" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <input type="password" inputmode="numeric" id="login-pin" maxlength="5" placeholder="•••••" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 font-mono tracking-widest text-lg input-numeric-only">
                     </div>
                 </div>
             </div>
             <div class="space-y-3">
-                <button onclick="handleLogin()" class="w-full py-4 bg-[#E2136E] text-white font-bold rounded-xl shadow-lg shadow-pink-200 active:scale-98 transition text-sm">পরবর্তী</button>
+                <button type="button" onclick="handleLogin()" class="w-full py-4 bg-[#E2136E] text-white font-bold rounded-xl shadow-lg shadow-pink-200 active:scale-98 transition text-sm">পরবর্তী</button>
                 <p class="text-center text-xs text-gray-500">নতুন অ্যাকাউন্ট প্রয়োজন? <span onclick="goToSignUpScreen()" class="text-[#E2136E] font-bold cursor-pointer hover:underline">সাইন-আপ করুন</span></p>
             </div>
         </div>
 
-        <!-- 3. MAIN APP CONTAINER DISPLAY -->
         <div id="app-workspace" class="flex-1 flex flex-col justify-between hidden">
-            
-            <!-- TOP APP BAR HEADER -->
             <header class="bg-[#E2136E] text-white pt-4 px-4 pb-3 rounded-b-3xl shadow-lg sticky top-0 z-40">
                 <div class="flex justify-between items-center mb-3">
                     <div class="flex items-center gap-2.5">
                         <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=60" alt="User" class="w-9 h-9 rounded-full border-2 border-white object-cover shadow">
                         <div>
-                            <h2 class="text-xs font-bold" id="user-name-display">ব্যবহারকারী</h2>
+                            <h2 class="text-xs font-bold" id="user-name-display">লোডিং...</h2>
                             <p class="text-[9px] text-pink-100 flex items-center gap-1"><i class="fa-solid fa-shield-halved text-yellow-300"></i> ট্রাস্টেড অ্যাকাউন্ট</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-3">
                         <button onclick="toggleInbox()" class="relative p-1 text-lg">
                             <i class="fa-regular fa-bell"></i>
-                            <span class="absolute top-0 right-0 w-2 h-2 bg-yellow-400 rounded-full animate-ping"></span>
                         </button>
                         <span class="text-xl font-black italic tracking-tighter cursor-pointer" onclick="logout()">bKash</span>
                     </div>
                 </div>
 
-                <!-- Tap To Reveal Balance -->
                 <div class="bg-[#B00E54] rounded-xl p-3 flex justify-between items-center cursor-pointer select-none transition active:scale-98" id="balance-tap-box">
                     <div>
                         <p class="text-[10px] text-pink-100 uppercase tracking-wider">অ্যাকাউন্ট ব্যালেন্স</p>
@@ -114,72 +100,38 @@
                 </div>
             </header>
 
-            <!-- MIDDLE CONTENT CONTAINER -->
             <main class="flex-1 overflow-y-auto no-scrollbar p-4 space-y-5 pb-20" id="main-scroll-view">
-                
-                <!-- SEARCH HUD -->
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 text-xs"><i class="fa-solid fa-magnifying-glass"></i></span>
-                    <input type="text" placeholder="খুঁজুন, রিচার্জ করুন বা মার্চেন্ট নাম লিখুন..." class="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-100 rounded-xl text-xs focus:outline-none">
-                </div>
-
-                <!-- 3X3 GRID CORE SERVICES -->
                 <div class="bg-white rounded-2xl p-3 border border-gray-100 shadow-sm grid grid-cols-4 gap-y-5 gap-x-2">
-                    <button onclick="triggerService('sendMoney')" class="flex flex-col items-center group">
-                        <div class="w-11 h-11 bg-pink-50 text-[#E2136E] rounded-xl flex items-center justify-center text-lg shadow-sm group-hover:bg-[#E2136E] group-hover:text-white transition"><i class="fa-solid fa-paper-plane"></i></div>
+                    <button onclick="triggerService('sendMoney')" class="flex flex-col items-center">
+                        <div class="w-11 h-11 bg-pink-50 text-[#E2136E] rounded-xl flex items-center justify-center text-lg shadow-sm"><i class="fa-solid fa-paper-plane"></i></div>
                         <span class="text-[10px] font-bold mt-1.5 text-gray-700">সেন্ড মানি</span>
                     </button>
-                    <button onclick="triggerService('recharge')" class="flex flex-col items-center group">
-                        <div class="w-11 h-11 bg-pink-50 text-[#E2136E] rounded-xl flex items-center justify-center text-lg shadow-sm group-hover:bg-[#E2136E] group-hover:text-white transition"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <button onclick="triggerService('recharge')" class="flex flex-col items-center">
+                        <div class="w-11 h-11 bg-pink-50 text-[#E2136E] rounded-xl flex items-center justify-center text-lg shadow-sm"><i class="fa-solid fa-mobile-screen"></i></div>
                         <span class="text-[10px] font-bold mt-1.5 text-gray-700">মোবাইল রিচার্জ</span>
                     </button>
-                    <button onclick="triggerService('cashOut')" class="flex flex-col items-center group">
-                        <div class="w-11 h-11 bg-pink-50 text-[#E2136E] rounded-xl flex items-center justify-center text-lg shadow-sm group-hover:bg-[#E2136E] group-hover:text-white transition"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                    <button onclick="triggerService('cashOut')" class="flex flex-col items-center">
+                        <div class="w-11 h-11 bg-pink-50 text-[#E2136E] rounded-xl flex items-center justify-center text-lg shadow-sm"><i class="fa-solid fa-money-bill-transfer"></i></div>
                         <span class="text-[10px] font-bold mt-1.5 text-gray-700">ক্যাশ আউট</span>
                     </button>
-                    <button onclick="triggerService('payment')" class="flex flex-col items-center group">
-                        <div class="w-11 h-11 bg-pink-50 text-[#E2136E] rounded-xl flex items-center justify-center text-lg shadow-sm group-hover:bg-[#E2136E] group-hover:text-white transition"><i class="fa-solid fa-bag-shopping"></i></div>
+                    <button onclick="triggerService('payment')" class="flex flex-col items-center">
+                        <div class="w-11 h-11 bg-pink-50 text-[#E2136E] rounded-xl flex items-center justify-center text-lg shadow-sm"><i class="fa-solid fa-bag-shopping"></i></div>
                         <span class="text-[10px] font-bold mt-1.5 text-gray-700">পেমেন্ট</span>
-                    </button>
-                    <button onclick="triggerService('payBill')" class="flex flex-col items-center group">
-                        <div class="w-11 h-11 bg-pink-50 text-[#E2136E] rounded-xl flex items-center justify-center text-lg shadow-sm group-hover:bg-[#E2136E] group-hover:text-white transition"><i class="fa-solid fa-lightbulb"></i></div>
-                        <span class="text-[10px] font-bold mt-1.5 text-gray-700">পে বিল</span>
-                    </button>
-                    <button onclick="triggerService('addMoney')" class="flex flex-col items-center group">
-                        <div class="w-11 h-11 bg-pink-50 text-[#E2136E] rounded-xl flex items-center justify-center text-lg shadow-sm group-hover:bg-[#E2136E] group-hover:text-white transition"><i class="fa-solid fa-plus-square"></i></div>
-                        <span class="text-[10px] font-bold mt-1.5 text-gray-700">অ্যাড মানি</span>
-                    </button>
-                    <button onclick="toggleLimitModal()" class="flex flex-col items-center group">
-                        <div class="w-11 h-11 bg-pink-50 text-[#E2136E] rounded-xl flex items-center justify-center text-lg shadow-sm group-hover:bg-[#E2136E] group-hover:text-white transition"><i class="fa-solid fa-chart-line"></i></div>
-                        <span class="text-[10px] font-bold mt-1.5 text-gray-700">লিমিট</span>
-                    </button>
-                    <button onclick="alert('বিকাশ রেমিট্যান্স গেটওয়ে চেক করা হচ্ছে...')" class="flex flex-col items-center group">
-                        <div class="w-11 h-11 bg-pink-50 text-[#E2136E] rounded-xl flex items-center justify-center text-lg shadow-sm group-hover:bg-[#E2136E] group-hover:text-white transition"><i class="fa-solid fa-earth-americas"></i></div>
-                        <span class="text-[10px] font-bold mt-1.5 text-gray-700">রেমিট্যান্স</span>
                     </button>
                 </div>
 
-                <!-- SUGGESTIONS SLIDER -->
                 <div>
                     <h3 class="text-xs font-bold text-gray-400 mb-2.5 uppercase tracking-wide">আমার বিকাশ প্রি-সেট</h3>
                     <div class="flex gap-3 overflow-x-auto no-scrollbar">
-                        <div onclick="fillQuickNumber('01811223344')" class="flex-shrink-0 bg-white border border-gray-100 rounded-2xl p-3 text-center w-24 cursor-pointer hover:border-pink-300">
+                        <div onclick="fillQuickNumber('01811223344')" class="flex-shrink-0 bg-white border border-gray-100 rounded-2xl p-3 text-center w-24 cursor-pointer">
                             <p class="text-xs font-bold text-gray-800">আম্মু</p>
                             <p class="text-[9px] text-gray-400 font-mono mt-0.5">01811223344</p>
-                        </div>
-                        <div onclick="fillQuickNumber('01955667788')" class="flex-shrink-0 bg-white border border-gray-100 rounded-2xl p-3 text-center w-24 cursor-pointer hover:border-pink-300">
-                            <p class="text-xs font-bold text-gray-800">অফিস ভাই</p>
-                            <p class="text-[9px] text-gray-400 font-mono mt-0.5">01955667788</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- TRANSACTION HISTORY ENGINE VIEW -->
                 <div id="statement-anchor">
-                    <div class="flex justify-between items-center mb-3">
-                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wide">সর্বশেষ স্টেটমেন্ট লেনদেন</h3>
-                        <span class="text-xs font-bold text-[#E2136E] cursor-pointer" onclick="scrollToStatement()">সব দেখুন</span>
-                    </div>
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wide mb-3">সর্বশেষ স্টেটমেন্ট লেনদেন</h3>
                     <div class="space-y-2.5" id="transaction-log-container">
                         <div class="flex justify-between items-center p-3.5 bg-gray-50 rounded-2xl border border-gray-100">
                             <div class="flex items-center gap-3">
@@ -195,54 +147,58 @@
                 </div>
             </main>
 
-            <!-- BOTTOM APP NAVIGATION SLOTS -->
             <footer class="bg-white border-t border-gray-100 grid grid-cols-3 py-3 text-center text-gray-400 relative z-40">
                 <button onclick="navSwitch('home')" id="nav-btn-home" class="text-[#E2136E] flex flex-col items-center gap-0.5">
                     <i class="fa-solid fa-house-chimney text-lg"></i><span class="text-[9px] font-bold">হোম</span>
                 </button>
-                <button onclick="navSwitch('statement')" id="nav-btn-statement" class="hover:text-[#E2136E] flex flex-col items-center gap-0.5 transition">
+                <button onclick="navSwitch('statement')" id="nav-btn-statement" class="flex flex-col items-center gap-0.5">
                     <i class="fa-solid fa-rectangle-list text-lg"></i><span class="text-[9px] font-bold">স্টেটমেন্ট</span>
                 </button>
-                <button onclick="toggleInbox()" id="nav-btn-inbox" class="hover:text-[#E2136E] flex flex-col items-center gap-0.5 transition">
+                <button onclick="toggleInbox()" class="flex flex-col items-center gap-0.5">
                     <i class="fa-solid fa-bell text-lg"></i><span class="text-[9px] font-bold">ইনবক্স</span>
                 </button>
             </footer>
-
         </div>
 
-        <!-- TRANSACTION SLIDE-UP MODAL FORM -->
         <div id="action-modal" class="absolute inset-0 bg-black/60 z-50 hidden flex items-end">
-            <div class="w-full bg-white rounded-t-[32px] p-6 space-y-4 animate-slide-up transform transition-transform">
+            <div class="w-full bg-white rounded-t-[32px] p-6 space-y-4">
                 <div class="flex justify-between items-center border-b pb-3">
                     <h3 id="modal-title-text" class="text-sm font-bold text-gray-800">অ্যাকশন</h3>
                     <button onclick="closeActionModal()" class="w-7 h-7 bg-gray-100 rounded-full text-gray-400 flex items-center justify-center"><i class="fa-solid fa-xmark text-sm"></i></button>
                 </div>
                 
-                <form id="bkash-transaction-form" class="space-y-3.5">
+                <div class="space-y-3.5">
                     <input type="hidden" id="current-action-type">
                     <div>
                         <label id="dynamic-input-label" class="block text-[11px] font-bold text-gray-500 mb-1">নম্বর</label>
-                        <input type="text" inputmode="numeric" required id="form-target-number" maxlength="11" placeholder="১১ ডিজিটের মোবাইল নম্বর" class="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-pink-500 text-xs font-mono" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <input type="text" inputmode="numeric" id="form-target-number" maxlength="11" placeholder="১১ ডিজিটের মোবাইল নম্বর" class="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none text-xs font-mono input-numeric-only">
                     </div>
                     <div>
                         <label class="block text-[11px] font-bold text-gray-500 mb-1">টাকার পরিমাণ (৳)</label>
-                        <input type="number" required min="10" id="form-amount" placeholder="৳ সর্বনিম্ন ১০ টাকা" class="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-pink-500 text-xs font-mono">
+                        <input type="number" id="form-amount" placeholder="৳ সর্বনিম্ন ১০ টাকা" class="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none text-xs font-mono">
                     </div>
                     <div>
                         <label class="block text-[11px] font-bold text-gray-500 mb-1">আপনার ৫ ডিজিটের পিন নম্বর</label>
-                        <input type="password" inputmode="numeric" required maxlength="5" id="form-secure-pin" placeholder="•••••" class="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-pink-500 text-xs tracking-widest font-mono" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <input type="password" inputmode="numeric" id="form-secure-pin" maxlength="5" placeholder="•••••" class="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none text-xs tracking-widest font-mono input-numeric-only">
                     </div>
-                    <button type="submit" class="w-full py-3.5 bg-[#E2136E] text-white text-xs font-bold rounded-xl shadow-lg hover:opacity-95 transition">নিশ্চিত করতে ট্যাপ করুন</button>
-                </form>
+                    <button type="button" onclick="executeTransaction()" class="w-full py-3.5 bg-[#E2136E] text-white text-xs font-bold rounded-xl shadow-lg">নিশ্চিত করতে ট্যাপ করুন</button>
+                </div>
             </div>
         </div>
 
-        <!-- LIMIT MODAL -->
-        <div id="limit-modal" class="absolute inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
-            <div class="bg-white rounded-3xl w-full p-5 space-y-4">
-                <div class="flex justify-between items-center border-b pb-2">
-                    <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wide">বিকাশ দৈনিক লেনদেন লিমিট</h3>
-                    <button onclick="toggleLimitModal()" class="text-gray-400"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div class="space-y-2 text-xs">
-                    <div class="flex justify-between p-2 bg-gray-50 rounded-l
+        <div id="inbox-panel" class="absolute inset-x-0 bottom-0 bg-white rounded-t-3xl border-t shadow-2xl z-50 p-5 space-y-3.5 hidden">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h3 class="text-sm font-bold text-gray-800">নোটিফিকেশন ইনবক্স</h3>
+                <button onclick="toggleInbox()" class="text-gray-400"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-3 bg-pink-50 rounded-xl border-l-4 border-[#E2136E]">
+                <p class="text-xs font-bold text-gray-800">সিস্টেম সচল রয়েছে!</p>
+                <p class="text-[10px] text-gray-500 mt-0.5">বিকাশ ওয়েব অ্যাপ গেটওয়ে সফলভাবে কানেক্টেড।</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
